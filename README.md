@@ -35,6 +35,6 @@ Anhand von Berichten (muss nicht rein wissenschaftlich sein, Meinung von Ärzten
 
 ### Step ny Step Guid
 * Zuerst müssen Sie das Repository klonen
-* Anschließend die requirements.txt Datei installieren mit pip install -r requirements.txt
+* Anschließend die requirements.txt Datei installieren mit `pip install -r requirements.txt`
 * Dann über das Terminal in den ordner `frontend` wechseln 
 * Die Streamlit app kann hier mit dem Befehl `streamlit run app.py` gestartet werden
