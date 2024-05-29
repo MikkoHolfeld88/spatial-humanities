@@ -1,0 +1,26 @@
+{
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "name": "Ev. Diakonissenkrankenhaus Hauptstandort", "Bettenkapazität": 249, "address": "Georg-Schwarz-Str. 49 Leipzig" }, "geometry": { "type": "Point", "coordinates": [ 12.3216091, 51.3429093 ] } },
+{ "type": "Feature", "properties": { "name": "HELIOS-Park-Klinikum Hauptstandort", "Bettenkapazität": 670, "address": "Strümpellstr. 41, Leipzig" }, "geometry": { "type": "Point", "coordinates": [ 12.435395, 51.307761 ] } },
+{ "type": "Feature", "properties": { "name": "Herzzentrum Leipzig GmbH", "Bettenkapazität": 440, "address": "Strümpellstr. 39, Leipzig" }, "geometry": { "type": "Point", "coordinates": [ 12.436986, 51.306836 ] } },
+{ "type": "Feature", "properties": { "name": "Klinikum St. Georg GmbH", "Bettenkapazität": 63, "address": "Nikolai-Rumjanzew-Str. 100, Leipzig" }, "geometry": { "type": "Point", "coordinates": [ 12.2973975, 51.3194627 ] } },
+{ "type": "Feature", "properties": { "name": "Klinikum St. Georg GmbH", "Bettenkapazität": 617, "address": "Delitzscher Str. 141, Leipzig" }, "geometry": { "type": "Point", "coordinates": [ 12.376157898775695, 51.38447695 ] } },
+{ "type": "Feature", "properties": { "name": "St. Elisabeth Krankenhaus Leipzig gGmbH", "Bettenkapazität": 442, "address": "Biedermannstr., Leipzig" }, "geometry": { "type": "Point", "coordinates": [ 12.3749907, 51.3085257 ] } },
+{ "type": "Feature", "properties": { "name": "Universitätsklinikum Leipzig AöR", "Bettenkapazität": 1421, "address": "Liebigstr. 18, Leipzig" }, "geometry": { "type": "Point", "coordinates": [ 12.384855, 51.3313102 ] } },
+{ "type": "Feature", "properties": { "name": "Neurologisches Rehabilitationszentrum Leipzig", "Bettenkapazität": 60, "address": "Muldentalweg 1, Bennewitz" }, "geometry": { "type": "Point", "coordinates": [ 12.647820448049149, 51.3486945 ] } },
+{ "type": "Feature", "properties": { "name": "Sana-Kliniken Leipziger Land Klinikum Borna", "Bettenkapazität": 507, "address": "Rudolf-Virchow-Str. 2, Borna" }, "geometry": { "type": "Point", "coordinates": [ 12.505404965365493, 51.1346458 ] } },
+{ "type": "Feature", "properties": { "name": "Diakoniewerk Zschadraß gemeinnützige GmbH", "Bettenkapazität": 165, "address": "Im Park 15a, Colditz" }, "geometry": { "type": "Point", "coordinates": [ 12.8190298, 51.13589235 ] } },
+{ "type": "Feature", "properties": { "name": "Muldentalkliniken Standort Wurzen", "Bettenkapazität": 177, "address": "Kleiststr. 5, Grimma" }, "geometry": { "type": "Point", "coordinates": [ 12.7190443, 51.2380779 ] } },
+{ "type": "Feature", "properties": { "name": "Muldentalkliniken Standort Wurzen", "Bettenkapazität": 178, "address": "Kutusowstr. 70, Wurzen" }, "geometry": { "type": "Point", "coordinates": [ 12.732272930453727, 51.3788364 ] } },
+{ "type": "Feature", "properties": { "name": "Sana-Kliniken Leipziger Land Klinikum Borna", "Bettenkapazität": 59, "address": "Pestalozzistr. 9, Zwenkau" }, "geometry": { "type": "Point", "coordinates": [ 12.330615229131492, 51.2202612 ] } },
+{ "type": "Feature", "properties": { "name": "MediClin Waldkrankenhaus Bad Düben", "Bettenkapazität": 125, "address": "Gustav-Adolf-Str. 15a, Bad Düben" }, "geometry": { "type": "Point", "coordinates": [ 12.582225776331487, 51.59845085 ] } },
+{ "type": "Feature", "properties": { "name": "Kreiskrankenhaus Delitzsch GmbH Klinik Delitzsch", "Bettenkapazität": 135, "address": "Dübener Str. 3-9, Delitzsch" }, "geometry": { "type": "Point", "coordinates": [ 12.337361290318796, 51.5273203 ] } },
+{ "type": "Feature", "properties": { "name": "Kreiskrankenhaus Delitzsch GmbH Klinik Delitzsch", "Bettenkapazität": 135, "address": "Wilhelm-Grune-Str. 5-8, Eilenburg" }, "geometry": { "type": "Point", "coordinates": [ 12.621197761883243, 51.4604669 ] } },
+{ "type": "Feature", "properties": { "name": "COLLM KLINIK OSCHATZ GmbH", "Bettenkapazität": 190, "address": "Parkstr. 1, Oschatz" }, "geometry": { "type": "Point", "coordinates": [ 13.1137846, 51.2927598 ] } },
+{ "type": "Feature", "properties": { "name": "Helios Klinik Schkeuditz", "Bettenkapazität": 150, "address": "Leipziger Str. 45, Schkeuditz" }, "geometry": { "type": "Point", "coordinates": [ 12.23026403550314, 51.39433435 ] } },
+{ "type": "Feature", "properties": { "name": "Sächsisches Krankenhaus Altscherbitz - Hauptstandort", "Bettenkapazität": 253, "address": "Leipziger Str. 59, Schkeuditz" }, "geometry": { "type": "Point", "coordinates": [ 12.252296936251213, 51.38724355 ] } },
+{ "type": "Feature", "properties": { "name": "Kreiskrankenhaus Torgau Johann Kentmann", "Bettenkapazität": 271, "address": "Christianistr. 1, Torgau" }, "geometry": { "type": "Point", "coordinates": [ 12.984629, 51.5615645 ] } }
+]
+}
