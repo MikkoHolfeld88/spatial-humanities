@@ -2,6 +2,7 @@
 
 ### Daten zu Krankenhäusern
 https://www.statistikportal.de/de/veroeffentlichungen/krankenhausverzeichnis
+"Krankenhausverzeichnis_31_12_2022__1.xlsb"
 
 Nutzung als GeoJson angereichert mit foglenden Attributen:
 
@@ -11,9 +12,15 @@ Nutzung als GeoJson angereichert mit foglenden Attributen:
 
 ### Gemeinden mit metainformation zu Bevölkerung und Fläche:
 Gemeinden mit Bevölkerungsinfomration: https://www.destatis.de/DE/Themen/Laender-Regionen/Regionales/Gemeindeverzeichnis/Administrativ/Archiv/GVAuszugQ/AuszugGV1QAktuell.html
+"Gemeindedaten.xlsx"
 
 Nutzung als GeoJson angereichert mit foglenden Attributen:
 
 | Land | Kreis | Gemeinde | Gemeindename | Bevölkerungsanzahl | Geografische Mittelpunktkoordianten | Grenze als GeoJson|
 | ---- | ----- | -------- | ------------ | ------------------ | ----------------------------------- | ----------------- | 
 | Number | Number | Number | String | Number | coordinate | GeoJson | 
+
+### fertige Datensätze:
+- "cities.geojson"
+- "hospitals.geojson"
+- "Patientenfluss.csv"
