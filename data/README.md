@@ -3,7 +3,7 @@
 ### Daten zu Krankenhäusern
 https://www.statistikportal.de/de/veroeffentlichungen/krankenhausverzeichnis
 
-Nutzung als GeoJson mit folgenden Inahlten: 
+Nutzung als GeoJson angereichert mit foglenden Attributen:
 
 | Land | Kreis | Gemeinde | Name_Einrichtung | Adresse | Geokoordinate | Traeger | Schwerverletztenversorgung | Schlaganfallversorgung | Betten insgesamt | Betten innere Medizin | Betten Kardiologie | Betten Allgemeine Chirurgie |Betten Herzchirurgie |Betten Urologie | Betten HNO | Betten Psychatrie |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |------------- |------------- | ------------- | ------------- |
@@ -12,4 +12,8 @@ Nutzung als GeoJson mit folgenden Inahlten:
 ### Gemeinden mit metainformation zu Bevölkerung und Fläche:
 Gemeinden mit Bevölkerungsinfomration: https://www.destatis.de/DE/Themen/Laender-Regionen/Regionales/Gemeindeverzeichnis/Administrativ/Archiv/GVAuszugQ/AuszugGV1QAktuell.html
 
+Nutzung als GeoJson angereichert mit foglenden Attributen:
 
+| Land | Kreis | Gemeinde | Gemeindename | Bevölkerungsanzahl | Geografische Mittelpunktkoordianten | Grenze als GeoJson|
+| ---- | ----- | -------- | ------------ | ------------------ | ----------------------------------- | ----------------- | 
+| Number | Number | Number | String | Number | coordinate | GeoJson | 
