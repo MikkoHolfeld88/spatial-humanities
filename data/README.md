@@ -3,13 +3,13 @@
 ### Daten zu Krankenhäusern
 https://www.statistikportal.de/de/veroeffentlichungen/krankenhausverzeichnis
 
+Nutzung als GeoJson mit folgenden Inahlten: 
+
+| Land | Kreis | Gemeinde | Name_Einrichtung | Adresse | Geokoordinate | Traeger | Schwerverletztenversorgung | Schlaganfallversorgung | Betten insgesamt | Betten innere Medizin | Betten Kardiologie | Betten Allgemeine Chirurgie |Betten Herzchirurgie |Betten Urologie | Betten HNO | Betten Psychatrie |
+| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |------------- |------------- | ------------- | ------------- |
+| Number | Number | Number | String | String | Coordinate | Number | Boolean | Boolean | Number | Number | Number | Number | Number | Number | Number | Number |
+
 ### Gemeinden mit metainformation zu Bevölkerung und Fläche:
 Gemeinden mit Bevölkerungsinfomration: https://www.destatis.de/DE/Themen/Laender-Regionen/Regionales/Gemeindeverzeichnis/Administrativ/Archiv/GVAuszugQ/AuszugGV1QAktuell.html
 
-### Darstellung Gemeinden als Geo-Objekt:
 
-#### Variante 1:
-Koordinaten der Verwaltungsgebiete: https://gdz.bkg.bund.de/index.php/default/digitale-geodaten/verwaltungsgebiete/verwaltungsgebiete-1-5-000-000-stand-31-12-vg5000-12-31.html
-
-#### Variante 2:
-Geokoordinaten der Gemeinden können aus openstreetmap.org exportiert werden. Hierzu nach der Gemeinde suchen und unter Weg sind alle Referenzen der Außengrenze dieses Bezirkes. Diese Referenzen können auch als xml heruntergeladen werden
