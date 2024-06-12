@@ -21,7 +21,7 @@ Vorverarbeitete Daten: **cities_saxony.geojson**<br>
 Nutzung als GeoJson angereichert mit foglenden Attributen:
 
 | Land | RB | Kreis | Gemeinde | Gemeindename | Bevölkerung Insgesamt | Bevölkerung männlich | Bevölkerung weiblich | Bevölkerung je km2 | Geografische Mittelpunktkoordianten | Geometry (Grenze) |
-| ---- | ----- | -------- | ------------ | ------------------ | ----------------------------------- | ----------------- | 
+| ---- | -- | ----- | ---------| -------------| --------------------- | -------------------- | -------------------- |------------------- |------------------------------------ |------------------ |
 | Number | Number | Number | Number | String | Number | Number | Number | Number | Point (asl wkt) | Polygon | 
 
 ### fertige Datensätze:
