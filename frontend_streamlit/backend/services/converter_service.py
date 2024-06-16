@@ -44,13 +44,11 @@ class ConverterService:
             json.dump(geojson_data, f)
 
     def get_regions(self):
-        path = os.path.join(os.path.dirname(__file__), 'cities.geojson')
-        with open(path, 'r') as file:
+        path = os.path.join(os.path.dirname(__file__), 'cities_saxony.geojson')
+        with open(path, 'r', encoding='utf-8') as file:
             return file.read()
 
     def get_hospitals(self):
         path = os.path.join(os.path.dirname(__file__), 'hospitals.geojson')
-        with open(path, 'r') as file:
+        with open(path, 'r', encoding='utf-8') as file:
             return file.read()
-
-converter_service = ConverterService(user_agent="converter_service")

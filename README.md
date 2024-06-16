@@ -33,7 +33,7 @@ Anhand von Berichten (muss nicht rein wissenschaftlich sein, Meinung von Ärzten
 
 #Local Installation
 
-### Step ny Step Guid
+### Step by Step Guide
 * Zuerst müssen Sie das Repository klonen
 * Anschließend die requirements.txt Datei installieren mit `pip install -r requirements.txt`
 * Dann über das Terminal in den ordner `frontend` wechseln 
