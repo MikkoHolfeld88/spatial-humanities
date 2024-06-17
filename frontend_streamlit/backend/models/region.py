@@ -10,6 +10,6 @@ class Region:
     id: str = ""
     name: str = ""
     population: int = 0
-    patient_demand: PatientDemand = None
+    patient_demand: float | PatientDemand = None
     latitude: float = 0
     longitude: float = 0
