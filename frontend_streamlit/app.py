@@ -7,7 +7,7 @@ from scenario_editor import edit_scenario
 import json
 
 map_service = MapService()
-converter_service = ConverterService(user_agent="converter_service")
+converter_service = ConverterService()
 
 st.set_page_config(layout="wide")
 st.sidebar.image('logo.png', use_column_width=True)
