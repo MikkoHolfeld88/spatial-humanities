@@ -4,14 +4,13 @@ from backend.services.map_service import MapService
 from backend.services.converter_service import ConverterService
 from store import store as Store
 from scenario_editor import edit_scenario
-
+import json
 
 map_service = MapService()
 converter_service = ConverterService(user_agent="converter_service")
 
 st.set_page_config(layout="wide")
 st.sidebar.image('logo.png', use_column_width=True)
-
 
 
 def add_scenario():
@@ -35,15 +34,15 @@ for idx, scenario in enumerate(Store.get_scenarios()):
 
 regions_le = converter_service.get_regions()
 hospitals_le = converter_service.get_hospitals()
-#
-# on_stadtteile_leipzig = st.sidebar.toggle("Stadtteile Leipzig", False)
-# on_krankenhauser_leipzig = st.sidebar.toggle("Krankenhäuser Leipzig", False)
-#
-# if on_stadtteile_leipzig:
-#     map_service.add_data_to_map(json.loads(regions_le), name="regions_le")
-#
-# if on_krankenhauser_leipzig:
-#     map_service.add_data_to_map(json.loads(hospitals_le), name="hospitals_le")
+
+on_stadtteile_leipzig = st.sidebar.toggle("Stadtteile Leipzig", False)
+on_krankenhauser_leipzig = st.sidebar.toggle("Krankenhäuser Leipzig", False)
+
+if on_stadtteile_leipzig:
+    map_service.add_data_to_map(json.loads(regions_le), name="regions_le")
+
+if on_krankenhauser_leipzig:
+    map_service.add_data_to_map(json.loads(hospitals_le), name="hospitals_le")
 
 map_1 = map_service.get_map()
 keplergl_static(map_1)
