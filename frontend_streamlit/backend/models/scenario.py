@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 
-from frontend_streamlit.backend.models.calculation import Calculation
-from frontend_streamlit.backend.models.hospital import Hospital
-from frontend_streamlit.backend.models.region import Region
+from backend.models.calculation import Calculation
+from backend.models.hospital import Hospital
+from backend.models.region import Region
 
 
 @dataclass

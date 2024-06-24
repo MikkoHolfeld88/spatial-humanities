@@ -1,11 +1,10 @@
-from frontend_streamlit.backend.models.scenario import Scenario
+from backend.models.hospital import Hospital
+from backend.models.region import Region
+from backend.models.scenario import Scenario
+
 
 class CalculationService:
-
-    def __init__(self):
-        pass
-
-    def calculate(self, scenario: Scenario) -> dict:
+    def calculate(self, scenario: Scenario, regions: list[Region], hospitals: list[Hospital]) -> list:
         """
             Algorithm to calculate the positions of the arrows on the map
 
@@ -19,17 +18,41 @@ class CalculationService:
         """
         default_radius = 42000
 
-        test_scenario = {
-            "regions": [{"name": "Region 1", "patients": 1000, "beds": 500}],
-            "calculation": {"id": "test", "radius": default_radius},
-            "hospitals": [{
-                "id": "test",
+        test_scenario: Scenario = Scenario()
+
+        test_scenario.calculation = {
+            "id": "test",
+            "radius": default_radius
+        }
+
+        test_scenario.regions = [
+            {
+                    "name": "Region 1",
+                    "population": 500000,
+                    "patient_demand": {
+                        "count": 1000,
+                        "specification": None
+                    },
+                    "latitude": 0,
+                    "longitude": 0
+                }
+        ],
+
+        test_scenario.hospitals = [
+            {
+                "id": "",
                 "allgemein_beds": {
                     "available": 0,
                     "used": 0
                 }
-            }]
-        }
+            }
+        ]
 
         for hospitals in test_scenario.hospitals:
             pass
+
+    def find_next_hospital(self, radius, coordinates_region):
+        pass
+
+    def calc_distance(self, radius, coordinates_region):
+        pass

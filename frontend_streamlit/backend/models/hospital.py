@@ -2,8 +2,8 @@ from dataclasses import dataclass
 
 @dataclass
 class Bed:
-    available: number = 0
-    used: number = 0
+    available: int = 0
+    used: int = 0
 
 @dataclass
 class Hospital:
