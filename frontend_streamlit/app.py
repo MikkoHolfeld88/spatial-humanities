@@ -2,6 +2,7 @@ import streamlit as st
 from streamlit_keplergl import keplergl_static
 from backend.services.map_service import MapService
 from backend.services.converter_service import ConverterService
+from backend.services.calculation_service import CaclulationService
 from store import store as Store
 from scenario_editor import edit_scenario
 import json
@@ -21,6 +22,10 @@ def delete_scenario(index):
 
 def open_modal(index):
     edit_scenario(index)
+
+def activate_scenario(index):
+    result = CaclulationService.calculate(Store.get_scenario(index))
+    map_service.add_data_to_map(result, name=f"patient_flow_{index}")
 
 st.sidebar.button("Szenario hinzufügen", on_click=add_scenario)
 
