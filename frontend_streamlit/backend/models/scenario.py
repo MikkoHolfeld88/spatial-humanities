@@ -7,8 +7,8 @@ from backend.models.region import Region
 
 @dataclass
 class Scenario:
-    regions: list[Region] = None
-    calculation: Calculation = Calculation()
-    hospitals: list[Hospital] = None
+    regions: list[Region]
+    calculation: Calculation
+    hospitals: list[Hospital]
 
 
