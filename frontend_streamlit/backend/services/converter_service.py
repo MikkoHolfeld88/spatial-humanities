@@ -1,5 +1,10 @@
 import os
 import pandas as pd
+import geopandas as gpd
+import json
+
+from traittypes.traittypes import DataFrame
+
 
 class ConverterService:
     def __init__(self):
@@ -9,7 +14,8 @@ class ConverterService:
     def load_regions(self):
         path = os.path.join(os.path.dirname(__file__), 'cities_saxony.geojson')
         with open(path, 'r', encoding='utf-8') as file:
-            return file.read()
+            data = file.read()
+            return json.loads(data)
 
     def load_hospitals(self):
         path = os.path.join(os.path.dirname(__file__), 'hospitals_saxony.geojson')
@@ -19,20 +25,37 @@ class ConverterService:
     def get_regions(self):
         return self.regions
 
+    def get_region_names(self):
+        gdf = gpd.GeoDataFrame.from_features(self.regions['features'])
+        return gdf['Gemeindename'].tolist()
+
     def get_hospitals(self):
         return self.hospitals
 
-    def get_population_by_region(self, region: str) -> int:
-        df_regions = pd.read_json(self.regions)
+    def get_region_coordinates_by_name(self, names: list[str]):
+        gdf = gpd.GeoDataFrame.from_features(self.regions['features'])
+        filtered_gdf = gdf[gdf['Gemeindename'].isin(names)]
+        return filtered_gdf
 
-        region = df_regions[df_regions['Gemeindename'] == region]
+    def get_population_by_regions(self, regions: list[str]) -> DataFrame:
+        filtered_gdf = self.get_region_coordinates_by_name(regions)
 
-        print(region)
+        total_population = filtered_gdf["Bevoelkerung_insgesamt"].sum()
+        male_population = filtered_gdf["Bevoelkerung_maennlich"].sum()
+        female_population = filtered_gdf["Bevoelkerung_weiblich"].sum()
 
-        population = region['Bevoelkerung_insgesamt'].values[0]
+        df = pd.DataFrame(
+            [
+                {"type": "♀ Female", "value": female_population},
+                {"type": "♂ Male", "value": male_population},
+                {"type": "🟰 Total", "value": total_population}
+            ]
+        )
 
-        print(population)
-
-        return population
+        return df
 
 
+# converter_service = ConverterService()
+#
+# region_names = converter_service.get_region_names()
+# print(region_names)

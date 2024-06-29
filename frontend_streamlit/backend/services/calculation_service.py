@@ -13,9 +13,10 @@ class CalculationService:
                 "to": {lat: float, lon: float}
             }, {...}, ...]
 
-        :param scenario:
-        :return: list({"from": {lat: float, lon: float},"to": {lat: float, lon: float}}, ... , ... )
+            :param scenario:
+            :return: list({"from": {lat: float, lon: float},"to": {lat: float, lon: float}}, ... , ... )
         """
+
         default_radius = 42000
 
         test_scenario: Scenario = Scenario()

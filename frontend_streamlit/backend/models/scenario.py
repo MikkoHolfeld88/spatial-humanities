@@ -7,19 +7,10 @@ from backend.models.region import Region
 
 @dataclass
 class Scenario:
-    """
-       Represents the entire scenario containing regions and hospitals.
-
-       Attributes:
-       - calculation (dict): Contains calculation parameters like radius.
-       - regions (list): List of Region objects.
-       - hospitals (list): List of Hospital objects.
-       """
+    name: str
+    desc: str
+    fraction: float
+    patient_demand: int
     regions: list[Region]
-    calculation: Calculation
+    calculation: Calculation | None
     hospitals: list[Hospital]
-
-    def __init__(self):
-        self.calculation = None
-        self.regions = []
-        self.hospitals = []
