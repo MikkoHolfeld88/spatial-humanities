@@ -1,8 +1,9 @@
 from dataclasses import dataclass
 
+from traittypes.traittypes import DataFrame
+
 from backend.models.calculation import Calculation
-from backend.models.hospital import Hospital
-from backend.models.region import Region
+from backend.models.hospital_beds import HospitalBeds
 
 
 @dataclass
@@ -11,6 +12,7 @@ class Scenario:
     desc: str
     fraction: float
     patient_demand: int
-    regions: list[Region]
+    regions: list[str]
     calculation: Calculation | None
-    hospitals: list[Hospital]
+    hospitals: list[str]
+    hospital_beds: list[HospitalBeds] | None

@@ -20,7 +20,8 @@ class ConverterService:
     def load_hospitals(self):
         path = os.path.join(os.path.dirname(__file__), 'hospitals_saxony.geojson')
         with open(path, 'r', encoding='utf-8') as file:
-            return file.read()
+            data = file.read()
+            return json.loads(data)
 
     def get_regions(self):
         return self.regions
@@ -54,6 +55,21 @@ class ConverterService:
 
         return df
 
+    def get_hospital_names(self):
+        gdf = gpd.GeoDataFrame.from_features(self.hospitals['features'])
+        if 'Name_Einrichtung' in gdf.columns:
+            return gdf['Name_Einrichtung'].tolist()
+        else:
+            return []
+
+
+    def get_available_beds_by_hospital_name(self, hospital_name: str):
+        gdf = gpd.GeoDataFrame.from_features(self.hospitals['features'])
+        matched_facility = gdf[gdf['Name_Einrichtung'] == hospital_name]
+        if not matched_facility.empty:
+            return int(matched_facility['INSG'].iloc[0])
+        else:
+            return None
 
 # converter_service = ConverterService()
 #

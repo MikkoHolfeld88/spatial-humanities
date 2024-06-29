@@ -84,7 +84,8 @@ class Store:
             fraction=0.0,
             regions=[],
             calculation=None,
-            hospitals=[])
+            hospitals=[],
+            hospital_beds=None)
         scenarios.append(scenario)
         self.state[SessionStateKey.SCENARIOS.value] = scenarios
 
