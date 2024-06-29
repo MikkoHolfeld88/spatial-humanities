@@ -1,4 +1,6 @@
 import os
+import re
+
 import pandas as pd
 import geopandas as gpd
 import json
@@ -55,6 +57,15 @@ class ConverterService:
 
         return df
 
+    def get_total_population_by_region_name(self, region_name: str) -> int:
+        gdf = self.get_region_coordinates_by_name([region_name])
+
+        if not gdf.empty:
+            total_population = gdf["Bevoelkerung_insgesamt"].sum()
+            return total_population
+        else:
+            return 0
+
     def get_hospital_names(self):
         gdf = gpd.GeoDataFrame.from_features(self.hospitals['features'])
         if 'Name_Einrichtung' in gdf.columns:
@@ -71,7 +82,51 @@ class ConverterService:
         else:
             return None
 
-# converter_service = ConverterService()
+    def get_hospital_coordinates_by_name(self, hospital_name):
+        gdf = gpd.GeoDataFrame.from_features(self.hospitals['features'])
+        matched_hospital = gdf[gdf['Name_Einrichtung'] == hospital_name]
+
+        if not matched_hospital.empty:
+            point = matched_hospital.iloc[0].geometry
+            return {"lat": point.y, "long": point.x}
+        else:
+            return None
+
+    def get_coordinate_centre_by_region_name(self, region_name: str):
+        gdf = gpd.GeoDataFrame.from_features(self.regions['features'])
+        matched_region = gdf[gdf['Gemeindename'] == region_name]
+
+        if not matched_region.empty:
+            coordinate_str = matched_region['coordinate_centre'].iloc[0]
+            # Assume the coordinates are stored as a string "POINT (lon lat)"
+            # Using regular expressions to extract the numbers
+            match = re.search(r"POINT \(([^ ]+) ([^ ]+)\)", coordinate_str)
+            if match:
+                longitude = float(match.group(1))
+                latitude = float(match.group(2))
+                return {"lat": latitude, "long": longitude}
+            else:
+                return None
+        else:
+            return None
+
+    def map_hospitals(self):
+        gdf = gpd.GeoDataFrame.from_features(self.hospitals['features'])
+
+        hospital_data = [{
+            "name": row['Name_Einrichtung'],
+            "lat": row.geometry.y,
+            "long": row.geometry.x
+        } for index, row in gdf.iterrows() if 'Name_Einrichtung' in gdf.columns and row.geometry]
+
+        return hospital_data
+
+converter_service = ConverterService()
+
+coords = converter_service.get_total_population_by_region_name("Nord Leipzig, Saxony, Germany")
+print(coords)
+
 #
 # region_names = converter_service.get_region_names()
 # print(region_names)
+

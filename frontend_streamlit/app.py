@@ -8,12 +8,13 @@ from backend.models.scenario import Scenario
 from backend.services.map_service import MapService
 from backend.services.converter_service import ConverterService
 from backend.services.calculation_service import CalculationService
+from backend.services.patientflowcalculator import PatientFlowCalculator
 from store import store as Store
 
 ############# SERVICES #############
 map_service = MapService()
 converter_service = ConverterService()
-calculation_service = CalculationService()
+calculation_service = PatientFlowCalculator()
 
 ############# DATA #############
 available_region_names = converter_service.get_region_names()
@@ -130,6 +131,11 @@ with st.sidebar:
                 if st.button("🎬 Start", key=f"activate_scenario_{i + 1}"):
                     # visualize regions
                     map_service.add_data_to_map(converter_service.get_region_coordinates_by_name(scenario.regions),"Regions")
+                    # add used beds configuration
+
+                    # calculate patient flow
+                    calculation_service.calculate(scenario)
+
                     pass
             with col2:
                 if st.button("📝 Edit", key=f"edit_scenario_{i + 1}"):

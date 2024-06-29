@@ -27,19 +27,21 @@ class CustomEncoder(JSONEncoder):
 def log_state_change(method):
     @wraps(method)
     def wrapper(self, *args, **kwargs):
+        pass
         try:
-            state_before = json.dumps(self.state, indent=4, cls=CustomEncoder)
+            pass
+            # state_before = json.dumps(self.state, indent=4, cls=CustomEncoder)
         except TypeError as e:
-            print(f"Serialization error before method {method.__name__}: {e}")
+            # print(f"Serialization error before method {method.__name__}: {e}")
             state_before = "Serialization error"
         result = method(self, *args, **kwargs)
         try:
             state_after = json.dumps(self.state, indent=4, cls=CustomEncoder)
         except TypeError as e:
-            print(f"Serialization error after method {method.__name__}: {e}")
+            # print(f"Serialization error after method {method.__name__}: {e}")
             state_after = "Serialization error"
-        print(f"========= Before =========\n {method.__name__}: {state_before}")
-        print(f"^^^^^^^^^^^ After ^^^^^^^^^^^^\n{method.__name__}: {state_after}")
+        # print(f"========= Before =========\n {method.__name__}: {state_before}")
+        # print(f"^^^^^^^^^^^ After ^^^^^^^^^^^^\n{method.__name__}: {state_after}")
         return result
     return wrapper
 
