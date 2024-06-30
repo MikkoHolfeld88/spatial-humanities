@@ -1,6 +1,7 @@
 import os
 import re
 
+import numpy as np
 import pandas as pd
 import geopandas as gpd
 import json
@@ -121,6 +122,84 @@ class ConverterService:
         } for index, row in gdf.iterrows() if 'Name_Einrichtung' in gdf.columns and row.geometry]
 
         return hospital_data
+
+    # def get_patient_flow_example(self):
+    #     df = pd.read_csv('Patientenfluss.csv')
+    #     return df
+
+    def convert_flows_to_geojson(self, flows):
+        geojson = {
+            "type": "FeatureCollection",
+            "features": []
+        }
+
+        for flow in flows:
+            feature = {
+                "type": "Feature",
+                "geometry": {
+                    "type": "LineString",
+                    "coordinates": [
+                        [flow['from']['lon'], flow['from']['lat']],
+                        [flow['to']['lon'], flow['to']['lat']]
+                    ]
+                },
+                "properties": {
+                    "patients": flow['patients']
+                }
+            }
+            geojson['features'].append(feature)
+
+        return geojson
+
+    # def convert_flows_to_geojson(self, flows):
+    #     geojson = {
+    #         "type": "FeatureCollection",
+    #         "features": []
+    #     }
+    #
+    #     for flow in flows:
+    #         # Start- und Endpunkte extrahieren
+    #         start = [flow['from']['lon'], flow['from']['lat']]
+    #         end = [flow['to']['lon'], flow['to']['lat']]
+    #
+    #         # Mittelpunkt und Radius für den Bogen berechnen
+    #         mid = [(start[0] + end[0]) / 2, (start[1] + end[1]) / 2 + 0.01]  # Leichter Nordversatz für den Bogen
+    #         radius = np.sqrt((mid[0] - start[0]) ** 2 + (mid[1] - start[1]) ** 2)
+    #
+    #         # Punkte des Bogens generieren
+    #         angle_start = np.arctan2(start[1] - mid[1], start[0] - mid[0])
+    #         angle_end = np.arctan2(end[1] - mid[1], end[0] - mid[0])
+    #         if angle_start < angle_end:
+    #             angle_start, angle_end = angle_end, angle_start
+    #
+    #         arc_angle = np.linspace(angle_end, angle_start, num=30)  # Anzahl der Punkte kann angepasst werden
+    #         arc = [[mid[0] + radius * np.cos(angle), mid[1] + radius * np.sin(angle)] for angle in arc_angle]
+    #
+    #         # Pfeilspitze am Ende des Bogens hinzufügen
+    #         arrow_size = 0.0005  # Größe der Pfeilspitze anpassen
+    #         arrow_head = [
+    #             [end[0], end[1]],
+    #             [end[0] + arrow_size * np.cos(angle_start - np.pi / 6),
+    #              end[1] + arrow_size * np.sin(angle_start - np.pi / 6)],
+    #             [end[0] + arrow_size * np.cos(angle_start + np.pi / 6),
+    #              end[1] + arrow_size * np.sin(angle_start + np.pi / 6)],
+    #             [end[0], end[1]]
+    #         ]
+    #
+    #         # Feature für den GeoJSON
+    #         feature = {
+    #             "type": "Feature",
+    #             "geometry": {
+    #                 "type": "LineString",
+    #                 "coordinates": arc + arrow_head
+    #             },
+    #             "properties": {
+    #                 "patients": flow['patients']
+    #             }
+    #         }
+    #         geojson['features'].append(feature)
+    #
+    #     return geojson
 
 converter_service = ConverterService()
 

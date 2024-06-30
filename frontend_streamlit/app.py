@@ -71,7 +71,7 @@ def edit_scenario(index):
 
     st.write("Patient Demand ❤️‍🩹")
     fraction = st.number_input("Insert patient (fraction of population)", key=f"patient_demand_{index}", min_value=0.0,
-                               max_value=1.0, step=0.01, value=scenario.fraction)
+                               max_value=1.0, step=0.001, value=scenario.fraction)
     patient_demand = fraction * total_population
     st.markdown(f"<b style='color:blue;'>Patient Demand: {patient_demand:.0f}</b>", unsafe_allow_html=True)
 
@@ -145,10 +145,17 @@ with st.sidebar:
             with col1:
                 if st.button("🎬 Start", key=f"activate_scenario_{i + 1}"):
                     # visualize regions
-                    map_service.add_data_to_map(converter_service.get_region_coordinates_by_name(scenario.regions),"Regions")
+
                     # add used beds configuration
                     # calculate patient flow
                     flows = calculation_service.calculate(scenario)
+                    geojson_flows = converter_service.convert_flows_to_geojson(flows)
+                    # visualize hospitals7
+                    map_service.add_data_to_map(converter_service.get_hospitals(), "Hospitals")
+                    # visualize patient flow
+                    map_service.add_data_to_map(geojson_flows, "Patient Flow")
+                    map_service.add_data_to_map(converter_service.get_region_coordinates_by_name(scenario.regions), "Regions")
+
             with col2:
                 if st.button("📝 Edit", key=f"edit_scenario_{i + 1}"):
                     open_edit_dialog(i)
