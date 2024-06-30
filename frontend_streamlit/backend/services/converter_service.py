@@ -116,7 +116,8 @@ class ConverterService:
         hospital_data = [{
             "name": row['Name_Einrichtung'],
             "lat": row.geometry.y,
-            "long": row.geometry.x
+            "long": row.geometry.x,
+            "available": int(row['INSG'])
         } for index, row in gdf.iterrows() if 'Name_Einrichtung' in gdf.columns and row.geometry]
 
         return hospital_data

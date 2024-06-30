@@ -11,7 +11,7 @@ class Scenario:
     name: str
     desc: str
     fraction: float
-    patient_demand: int
+    patient_demand: float
     regions: list[str]
     calculation: Calculation | None
     hospitals: list[str]

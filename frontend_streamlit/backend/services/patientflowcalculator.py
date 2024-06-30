@@ -1,18 +1,16 @@
 import math
 from typing import List, Dict, Any
-from dataclasses import dataclass
-from backend.models.calculation import Calculation
-from backend.models.hospital import Hospital
-from backend.models.region import Region
 from backend.models.scenario import Scenario
 from backend.services.converter_service import ConverterService
 
 converter_service = ConverterService()
 
+
 class PatientFlowCalculator:
     """
       Provides functionality to calculate the patient flow from regions to hospitals based on proximity and bed availability.
       """
+
     @staticmethod
     def haversine(lat1, lon1, lat2, lon2):
         """
@@ -50,36 +48,38 @@ class PatientFlowCalculator:
                 "patients": int
             }
         """
-        default_radius = scenario.calculation.radius
         flows = []
+        hospitals_calc = converter_service.map_hospitals()
+        available_beds_dict = {hospital["name"]: hospital["available"] for hospital in hospitals_calc}
+        default_radius = scenario.calculation.radius * 1000 # Convert radius from kilometers to meters
 
-        for region in scenario.regions:
-            region_patients = converter_service.get_total_population_by_region_name(region)
+        for region in scenario.regions: #FIXME: Distance is calculated for every region, but only the last one is used
+            region_patients = converter_service.get_total_population_by_region_name(region) * scenario.fraction
             region_coords = converter_service.get_coordinate_centre_by_region_name(region)
 
             region_lat = region_coords['lat']
             region_lon = region_coords['long']
-            hospitals_calc = converter_service.map_hospitals()
 
             hospitals_sorted_by_distance = sorted(hospitals_calc, key=lambda h: self.haversine(region_lat, region_lon, h["lat"], h["long"]))
 
             for hospital in hospitals_sorted_by_distance:
                 distance = self.haversine(region_lat, region_lon, hospital["lat"], hospital["long"])
+
                 if distance <= default_radius and region_patients > 0:
-                    available_beds = hospital.allgemein_beds['available']
+                    hospital_name = hospital["name"]
+                    available_beds = available_beds_dict.get(hospital_name, 0)
+
                     if available_beds > 0:
                         patients_to_transfer = min(region_patients, available_beds)
                         flows.append({
                             "from": {"lat": region_lat, "lon": region_lon},
-                            "to": {"lat": hospital.latitude, "lon": hospital.longitude},
+                            "to": {"lat": hospital["lat"], "lon": hospital["long"]},
                             "patients": patients_to_transfer
                         })
                         region_patients -= patients_to_transfer
-                        hospital.allgemein_beds['available'] -= patients_to_transfer
+                        available_beds_dict[hospital_name] -= patients_to_transfer
 
-        print(flows)
         return flows
-
 
 # # Example Usage
 #

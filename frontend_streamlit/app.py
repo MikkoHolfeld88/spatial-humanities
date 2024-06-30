@@ -1,13 +1,11 @@
 import streamlit as st
 from streamlit_keplergl import keplergl_static
-import pandas as pd
 
 from backend.models.calculation import Calculation
 from backend.models.hospital_beds import HospitalBeds
 from backend.models.scenario import Scenario
-from backend.services.map_service import MapService
 from backend.services.converter_service import ConverterService
-from backend.services.calculation_service import CalculationService
+from backend.services.map_service import MapService
 from backend.services.patientflowcalculator import PatientFlowCalculator
 from store import store as Store
 
@@ -41,15 +39,29 @@ def edit_scenario(index):
     st.title("🌍Regions")
     col1, col2 = st.columns(2)
     with col1:
-        select_all = st.checkbox("Select All Regions", key=f"select_all_{index}",
-                                 value=scenario.regions == available_region_names)
+        select_all = st.checkbox("Select All Regions", key=f"select_all_{index}", value=scenario.regions == available_region_names)
+        select_leipzig = st.checkbox("Select Leipzig", key=f"select_leipzig_{index}", value="Leipzig" in scenario.regions)
 
         if select_all:
-            selected_regions = st.multiselect("Select Regions", available_region_names, available_region_names,
-                                              key=f"scenario_regions_{index}")
+            selected_regions = st.multiselect(
+                "Select Regions",
+                available_region_names,
+                available_region_names,
+                key=f"scenario_regions_all{index}")
+
+        if select_leipzig:
+            selected_regions = st.multiselect(
+                "Select Regions",
+                available_region_names,
+                [region for region in available_region_names if "Leipzig" in region],
+                key=f"scenario_regions_leipzig{index}")
+
         else:
-            selected_regions = st.multiselect("Select Regions", available_region_names,
-                                              [region for region in scenario.regions], key=f"scenario_regions_{index}")
+            selected_regions = st.multiselect(
+                "Select Regions",
+                available_region_names,
+                [region for region in scenario.regions],
+                key=f"scenario_regions_{index}")
     with col2:
         population = converter_service.get_population_by_regions(selected_regions)
         st.write("Population")
@@ -64,13 +76,16 @@ def edit_scenario(index):
     st.markdown(f"<b style='color:blue;'>Patient Demand: {patient_demand:.0f}</b>", unsafe_allow_html=True)
 
     st.title("Calculation Configuration")
-    value = st.slider("Algortihm radius", 1, 200, scenario.calculation.radius if scenario.calculation else 5, 1, key=f"radius_{index}")
+    value = st.slider("Algortihm radius", 1, 200, scenario.calculation.radius if scenario.calculation else 5, 1,
+                      key=f"radius_{index}")
     st.write("Radius:", value)
 
     calclulation = Calculation(radius=value)
 
     st.title("🏥 Hospitals")
-    selected_hospitals = st.multiselect("Select Hospitals", hospital_names, [hospital for hospital in scenario.hospitals], key=f"scenario_hospitals_{index}")
+    selected_hospitals = st.multiselect("Select Hospitals", hospital_names,
+                                        [hospital for hospital in scenario.hospitals],
+                                        key=f"scenario_hospitals_{index}")
 
     hospital_beds: list[HospitalBeds] | None = [
         HospitalBeds(
@@ -78,7 +93,6 @@ def edit_scenario(index):
             available=converter_service.get_available_beds_by_hospital_name(hospital_name),
             used=0) for hospital_name in selected_hospitals
     ]
-
 
     new_hospital_beds = hospital_beds
     for idx, hospital in enumerate(hospital_beds):
@@ -125,18 +139,16 @@ with st.sidebar:
         with st.expander(label=expander_label, expanded=False):
             st.write(f"❤️‍🩹Patient Demand:", int(scenario.patient_demand) or 0)
             st.write(f"🌐Radius: ", scenario.calculation.radius if scenario.calculation else 0)
-            st.write(f"🛌Used beds: ", sum([beds.used for beds in scenario.hospital_beds]) if scenario.hospital_beds else 0)
+            st.write(f"🛌Used beds: ",
+                     sum([beds.used for beds in scenario.hospital_beds]) if scenario.hospital_beds else 0)
             col1, col2, col3 = st.columns(3)
             with col1:
                 if st.button("🎬 Start", key=f"activate_scenario_{i + 1}"):
                     # visualize regions
                     map_service.add_data_to_map(converter_service.get_region_coordinates_by_name(scenario.regions),"Regions")
                     # add used beds configuration
-
                     # calculate patient flow
-                    calculation_service.calculate(scenario)
-
-                    pass
+                    flows = calculation_service.calculate(scenario)
             with col2:
                 if st.button("📝 Edit", key=f"edit_scenario_{i + 1}"):
                     open_edit_dialog(i)

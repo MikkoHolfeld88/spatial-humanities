@@ -76,6 +76,9 @@ class Store:
     def set_krankenhauser(self, data):
         self.state[SessionStateKey.MAP_DATA.value][SessionStateKey.HOSPITALS.value] = data
 
+    def set_scenarios(self, scenarios):
+        self.state[SessionStateKey.SCENARIOS.value] = scenarios
+
     @log_state_change
     def add_scenario(self):
         scenarios = self.get_scenarios()
