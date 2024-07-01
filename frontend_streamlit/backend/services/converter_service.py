@@ -140,7 +140,6 @@ class ConverterService:
                 'patients': flow['patients']
             })
 
-        # Zurücksetzen des Cursors in der StringIO Instanz
         output.seek(0)
         return output.read()
 

@@ -148,12 +148,13 @@ with st.sidebar:
                     ############ NOT IMPLEMEMTEND ##############
                     # calculate patient flow
                     flows = calculation_service.calculate(scenario)
-                    geojson_flows = converter_service.convert_flows_to_csv(flows)
-                    # visualize patient flow
-                    map_service.add_data_to_map(geojson_flows, "patient_flow")
-                    # visualize hospitals
+                    #convert patient flow to csv
+                    csv_flows = converter_service.convert_flows_to_csv(flows)
+                    # visualize patient flow csv
+                    map_service.add_data_to_map(csv_flows, "patient_flow")
+                    # visualize hospitals geojson
                     map_service.add_data_to_map(converter_service.get_hospitals(), "hospitals")
-                    # visualize regions
+                    # visualize regions geojson
                     map_service.add_data_to_map(converter_service.get_region_coordinates_by_name(scenario.regions), "regions")
 
             with col2:

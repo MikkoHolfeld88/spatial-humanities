@@ -23,12 +23,18 @@ class MapService:
                             'type': 'geojson',
                             'config': {
                                 'dataId': 'regions',
-                                'isVisible': False,
+                                'isVisible': True,
                                 'isConfigActive': True,
                                 'extruded': True,
                                 'sizeRange': [0, 1],
                                 'coverage': 1,
-                                'enable3d': True
+                                'enable3d': True,
+                                'colorRange': {
+                                    'name': 'Light Blue Scale',
+                                    'type': 'sequential',
+                                    'category': 'Uber',
+                                    'colors': ['#B0E0E6', '#ADD8E6', '#87CEFA', '#87CEEB', '#00BFFF', '#B0E0E6']
+                                }
                             }
                         },
                         {
@@ -38,11 +44,11 @@ class MapService:
                                 'dataId': 'patient_flow',
                                 'isVisible': True,
                                 'isConfigActive': True,
-                                'colorRange': {
-                                    'name': 'Global Warming',
+                                  'colorRange': {
+                                    'name': 'Light Blue Scale',
                                     'type': 'sequential',
                                     'category': 'Uber',
-                                    'colors': ['#5A1846', '#900C3F', '#C70039', '#E3611C', '#F1920E', '#FFC300']
+                                    'colors': ['#B0E0E6', '#ADD8E6', '#87CEFA', '#87CEEB', '#00BFFF', '#B0E0E6']
                                 },
                                 'sizeRange': [0, 30],
                                 'getSourceColor': [255, 204, 204],
