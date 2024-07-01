@@ -22,7 +22,7 @@ class MapService:
                             'id': 'regions_layer',
                             'type': 'geojson',
                             'config': {
-                                'dataId': 'regions_',
+                                'dataId': 'regions',
                                 'isVisible': False,
                                 'isConfigActive': True,
                                 'extruded': True,
@@ -46,7 +46,8 @@ class MapService:
                                 },
                                 'sizeRange': [0, 30],
                                 'getSourceColor': [255, 204, 204],
-                                'getTargetColor': [0, 255, 0]
+                                'getTargetColor': [0, 255, 0],
+                                'enable3d': True
                             }
                         }
 
