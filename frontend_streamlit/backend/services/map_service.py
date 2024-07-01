@@ -22,7 +22,7 @@ class MapService:
                             'id': 'regions_layer',
                             'type': 'geojson',
                             'config': {
-                                'dataId': 'regions_le',
+                                'dataId': 'regions_',
                                 'isVisible': False,
                                 'isConfigActive': True,
                                 'extruded': True,
@@ -31,6 +31,24 @@ class MapService:
                                 'enable3d': True
                             }
                         },
+                        {
+                            'id': 'arc_layer',
+                            'type': 'Arc',
+                            'config': {
+                                'dataId': 'patient_flow',
+                                'isVisible': True,
+                                'isConfigActive': True,
+                                'colorRange': {
+                                    'name': 'Global Warming',
+                                    'type': 'sequential',
+                                    'category': 'Uber',
+                                    'colors': ['#5A1846', '#900C3F', '#C70039', '#E3611C', '#F1920E', '#FFC300']
+                                },
+                                'sizeRange': [0, 30],
+                                'getSourceColor': [255, 204, 204],
+                                'getTargetColor': [0, 255, 0]
+                            }
+                        }
 
                     ]
                 }

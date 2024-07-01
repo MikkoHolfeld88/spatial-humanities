@@ -144,17 +144,17 @@ with st.sidebar:
             col1, col2, col3 = st.columns(3)
             with col1:
                 if st.button("🎬 Start", key=f"activate_scenario_{i + 1}"):
-                    # visualize regions
-
                     # add used beds configuration
+                    ############ NOT IMPLEMEMTEND ##############
                     # calculate patient flow
                     flows = calculation_service.calculate(scenario)
-                    geojson_flows = converter_service.convert_flows_to_geojson(flows)
-                    # visualize hospitals7
-                    map_service.add_data_to_map(converter_service.get_hospitals(), "Hospitals")
+                    geojson_flows = converter_service.convert_flows_to_csv(flows)
                     # visualize patient flow
-                    map_service.add_data_to_map(geojson_flows, "Patient Flow")
-                    map_service.add_data_to_map(converter_service.get_region_coordinates_by_name(scenario.regions), "Regions")
+                    map_service.add_data_to_map(geojson_flows, "patient_flow")
+                    # visualize hospitals
+                    map_service.add_data_to_map(converter_service.get_hospitals(), "hospitals")
+                    # visualize regions
+                    map_service.add_data_to_map(converter_service.get_region_coordinates_by_name(scenario.regions), "regions")
 
             with col2:
                 if st.button("📝 Edit", key=f"edit_scenario_{i + 1}"):
