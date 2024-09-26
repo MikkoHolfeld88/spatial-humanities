@@ -70,14 +70,26 @@ def edit_scenario(index):
         total_population = population.loc[population['type'] == '🟰 Total', 'value'].iloc[0]
 
     st.write("Patient Demand ❤️‍🩹")
-    fraction = st.number_input("Insert patient (fraction of population)", key=f"patient_demand_{index}", min_value=0.0,
-                               max_value=1.0, step=0.001, value=scenario.fraction)
+    fraction = st.number_input(
+        "Insert patient (fraction of population)",
+        key=f"patient_demand_{index}",
+        min_value=0.0,
+        max_value=1.0,
+        step=0.001,
+        value=scenario.fraction
+    )
     patient_demand = fraction * total_population
     st.markdown(f"<b style='color:blue;'>Patient Demand: {patient_demand:.0f}</b>", unsafe_allow_html=True)
 
     st.title("Calculation Configuration")
-    value = st.slider("Algortihm radius", 1, 200, scenario.calculation.radius if scenario.calculation else 5, 1,
-                      key=f"radius_{index}")
+    value = st.slider(
+        "Algortihm radius",
+        1,
+        200,
+        scenario.calculation.radius if scenario.calculation else 5,
+        1,
+        key=f"radius_{index}"
+    )
     st.write("Radius:", value)
 
     calclulation = Calculation(radius=value)
@@ -91,7 +103,9 @@ def edit_scenario(index):
         HospitalBeds(
             name=hospital_name,
             available=converter_service.get_available_beds_by_hospital_name(hospital_name),
-            used=0) for hospital_name in selected_hospitals
+            used=0,
+            categories=None
+        ) for hospital_name in selected_hospitals
     ]
 
     new_hospital_beds = hospital_beds
@@ -106,6 +120,16 @@ def edit_scenario(index):
                 min_value=0,
                 max_value=hospital.available if hospital else 0,
                 value=scenario.hospital_beds[idx].used if scenario.hospital_beds else 0)
+            with st.container(border=True):
+                beds = converter_service.get_all_beds_by_hospital_name(hospital.name)
+                for i, bed in enumerate(beds):
+                    name = bed.replace("_", " ").capitalize()
+                    st.number_input(
+                        f"{name}: {beds[bed].iloc[0]}",
+                        key=f"beds_{i}_{idx}_{bed}",
+                        max_value=beds[bed].iloc[0]
+                    )
+
 
     if st.button("Save", key=f"save_{index}"):
         new_scenario = Scenario(

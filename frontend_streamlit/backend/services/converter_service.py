@@ -3,6 +3,8 @@ import io
 import os
 import re
 
+from pprint import pprint
+
 import numpy as np
 import pandas as pd
 import geopandas as gpd
@@ -75,6 +77,17 @@ class ConverterService:
             return gdf['Name_Einrichtung'].tolist()
         else:
             return []
+
+
+    def get_all_beds_by_hospital_name(self, hospital_name: str) -> pd.DataFrame:
+        gdf = gpd.GeoDataFrame.from_features(self.hospitals['features'])
+        matched_facility = gdf[gdf['Name_Einrichtung'] == hospital_name]
+
+        if not matched_facility.empty:
+            bed_columns = [col for col in matched_facility.columns if "Betten" in col]
+            matched_facility = matched_facility[bed_columns]
+            matched_facility = matched_facility.rename(columns=lambda x: x.lower().replace(" ", "_").replace("betten", ""))
+            return matched_facility
 
 
     def get_available_beds_by_hospital_name(self, hospital_name: str):
@@ -168,11 +181,3 @@ class ConverterService:
         return geojson
 
 converter_service = ConverterService()
-
-coords = converter_service.get_total_population_by_region_name("Nord Leipzig, Saxony, Germany")
-print(coords)
-
-#
-# region_names = converter_service.get_region_names()
-# print(region_names)
-

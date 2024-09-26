@@ -50,8 +50,14 @@ class PatientFlowCalculator:
         """
         flows = []
         hospitals_calc = converter_service.map_hospitals()
-        available_beds_dict = {hospital["name"]: hospital["available"] for hospital in hospitals_calc}
-        default_radius = scenario.calculation.radius * 1000 # Convert radius from kilometers to meters
+        available_beds_dict = {
+            hospital["name"]: hospital["available"] for hospital in hospitals_calc
+        }
+
+        try:
+            default_radius = scenario.calculation.radius * 1000 # Convert radius from kilometers to meters
+        except AttributeError:
+            default_radius = 42000
 
         for region in scenario.regions: #FIXME: Distance is calculated for every region, but only the last one is used
             region_patients = converter_service.get_total_population_by_region_name(region) * scenario.fraction
@@ -60,6 +66,7 @@ class PatientFlowCalculator:
             region_lat = region_coords['lat']
             region_lon = region_coords['long']
 
+            #TODO: Enhance wtih different sorting algorithms
             hospitals_sorted_by_distance = sorted(hospitals_calc, key=lambda h: self.haversine(region_lat, region_lon, h["lat"], h["long"]))
 
             for hospital in hospitals_sorted_by_distance:
@@ -80,67 +87,3 @@ class PatientFlowCalculator:
                         available_beds_dict[hospital_name] -= patients_to_transfer
 
         return flows
-
-# # Example Usage
-#
-# # Initialize the scenario
-# scenario = Scenario()
-# scenario.calculation = {"id": "test", "radius": 50000}  # Radius in meters (50 km)
-#
-# # Define regions
-# regions = [
-#     Region(
-#         name="Region 1",
-#         population=500000,
-#         patient_demand={"count": 1000, "specification": None},
-#         latitude=0,
-#         longitude=0
-#     ),
-#     Region(
-#         name="Region 2",
-#         population=300000,
-#         patient_demand={"count": 500, "specification": None},
-#         latitude=0.5,
-#         longitude=0.5
-#     ),
-#     Region(
-#         name="Region 3",
-#         population=200000,
-#         patient_demand={"count": 200, "specification": None},
-#         latitude=1,
-#         longitude=1
-#     )
-# ]
-#
-# # Define hospitals
-# hospitals = [
-#     Hospital(
-#         id="Hospital 1",
-#         latitude=0.3,
-#         longitude=0.3,
-#         allgemein_beds={"available": 400, "used": 0}
-#     ),
-#     Hospital(
-#         id="Hospital 2",
-#         latitude=0.6,
-#         longitude=0.6,
-#         allgemein_beds={"available": 300, "used": 0}
-#     ),
-#     Hospital(
-#         id="Hospital 3",
-#         latitude=1.2,
-#         longitude=1.2,
-#         allgemein_beds={"available": 200, "used": 0}
-#     )
-# ]
-#
-# # Add regions and hospitals to the scenario
-# scenario.regions.extend(regions)
-# scenario.hospitals.extend(hospitals)
-#
-# # Calculate patient flows
-# calculator = PatientFlowCalculator()
-# flows = calculator.calculate(scenario)
-#
-# # Output the results
-# print(flows)
