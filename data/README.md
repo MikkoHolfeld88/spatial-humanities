@@ -15,8 +15,8 @@ Nutzung als GeoJson angereichert mit foglenden Attributen:
 ### Gemeinden mit metainformation zu Bevölkerung und Fläche:
 Gemeinden mit Bevölkerungsinfomration: https://www.destatis.de/DE/Themen/Laender-Regionen/Regionales/Gemeindeverzeichnis/Administrativ/Archiv/GVAuszugQ/AuszugGV1QAktuell.html<br>
 
-Anreicherung mit den Bevölkerungszahlen der Stadtteile von Dresden und Leipzig:
-Dresden: https://www.dresden.de/de/rathaus.html.php (abgerufen unter Stadtbezirke und Ortschaften)
+Anreicherung mit den Bevölkerungszahlen der Stadtteile von Dresden und Leipzig:<br>
+Dresden: https://www.dresden.de/de/rathaus.html.php (abgerufen unter Stadtbezirke und Ortschaften)<br>
 Leipzig: https://statistik.leipzig.de/statdist/table.aspx?cat=2&rub=1
 
 Rohdaten: "Gemeindedaten.xlsx"<br>
